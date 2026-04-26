@@ -1,0 +1,141 @@
+<% layout('/layouts/boilerplate') -%>
+
+<script>
+  let mapToken = "<%= process.env.MAP_TOKEN %>"
+</script>
+
+<div class="show-page-wrapper">
+  <div class="show-container animate-fade-in">
+    <header class="show-header">
+      <h1 class="show-title"><%= villa.title %></h1>
+      <div class="show-subheader">
+        <div class="subheader-left">
+          <span>★ <%= villa.reviews.length > 0 ? '4.8' : 'New' %> · <%= villa.reviews.length %> reviews</span>
+          <span class="dot">·</span>
+          <span class="show-location-link"><%= villa.location %>, <%= villa.country %></span>
+        </div>
+        <div class="subheader-right">
+          <button class="action-btn"><i class="fa-regular fa-share-from-square"></i> Share</button>
+          <button class="action-btn"><i class="fa-regular fa-heart"></i> Save</button>
+        </div>
+      </div>
+    </header>
+
+    <div class="show-gallery">
+      <img src="<%= villa.image.url %>" alt="<%= villa.title %>" class="hero-img" />
+    </div>
+
+    <div class="show-content-layout">
+      
+      <div class="content-left">
+        <div class="host-details">
+          <h2>Entire villa hosted by <%= villa.owner.username %></h2>
+          <p class="stats-info">8 guests · 4 bedrooms · 4 beds · 3 bathrooms</p>
+        </div>
+
+        <hr class="section-divider" />
+
+        <div class="property-description">
+          <p><%= villa.description %></p>
+        </div>
+
+        <hr class="section-divider" />
+         
+        <% if (currUser && currUser._id.equals(villa.owner._id)) { %>
+          <div class="admin-actions">
+            <a href="/listings/<%= villa._id %>/edit" class="btn-edit">Edit Listing</a>
+            <form action="/listings/<%= villa._id %>?_method=DELETE" method="POST" style="display:inline;">
+              <button class="btn-delete">Delete Property</button>
+            </form>
+          </div>
+          <hr class="section-divider" />
+        <% } %>
+
+        <div class="map-section">
+          <h3>Directions</h3>
+          <div id="map"></div>
+        </div>
+
+        <hr class="section-divider" />
+
+        <div class="reviews-form-container">
+          <h4>Leave a Review</h4>
+          <form action="/listings/<%= villa._id %>/reviews" method="POST" novalidate class="needs-validation">
+            <div class="mb-3">
+              <label class="form-label">Rating</label>
+              <fieldset class="starability-basic">
+                <input type="radio" id="no-rate" class="input-no-rate" name="review[rating]" value="1" checked aria-label="No rating." />
+                <input type="radio" id="first-rate1" name="review[rating]" value="1" />
+                <label for="first-rate1" title="Terrible">1 star</label>
+                <input type="radio" id="first-rate2" name="review[rating]" value="2" />
+                <label for="first-rate2" title="Not good">2 stars</label>
+                <input type="radio" id="first-rate3" name="review[rating]" value="3" />
+                <label for="first-rate3" title="Average">3 stars</label>
+                <input type="radio" id="first-rate4" name="review[rating]" value="4" />
+                <label for="first-rate4" title="Very good">4 stars</label>
+                <input type="radio" id="first-rate5" name="review[rating]" value="5" />
+                <label for="first-rate5" title="Amazing">5 stars</label>
+              </fieldset>
+            </div>
+            
+            <div class="mb-3">
+              <label for="comment" class="form-label">Comments</label>
+              <textarea name="review[comment]" id="comment" rows="4" class="form-control" required placeholder="Describe your stay..."></textarea>
+              <div class="invalid-feedback">Please add some comments for your review.</div>
+            </div>
+            <button class="btn-primary-custom">Submit Review</button>
+          </form>
+        </div>
+
+        <hr class="section-divider" />
+
+        <div class="reviews-display-section">
+          <h4>What guests are saying</h4>
+          <div class="reviews-grid">
+            <% for(review of villa.reviews) { %>
+              <div class="review-card">
+                <div class="review-user">
+                  <div class="user-avatar"><%= review.author?.username?.[0]?.toUpperCase() || 'U' %></div>
+                  <div class="user-meta">
+                    <p class="user-name"><%= review.author ? review.author.username : 'Guest' %></p>
+                    <p class="starability-result" data-rating="<%= review.rating %>"></p>
+                  </div>
+                </div>
+                <div class="review-body">
+                  <p class="review-text">"<%= review.comment %>"</p>
+                  <% if (currUser && review.author && review.author._id.equals(currUser._id)) { %>
+                    <form action="/listings/<%= villa._id %>/reviews/<%= review._id %>?_method=DELETE" method="POST">
+                      <button class="btn-delete-small">Delete</button>
+                    </form>
+                  <% } %>
+                </div>
+              </div>
+            <% } %>
+          </div>
+        </div>
+      </div>
+
+      <aside class="content-right">
+        <div class="booking-card">
+          <div class="booking-card-header">
+            <div>
+              <span class="price-big">&#8377; <%= villa.price.toLocaleString("en-IN") %></span>
+              <span class="per-night">/ night</span>
+            </div>
+          </div>
+          <div class="booking-form-mock">
+            <div class="check-container">
+              <div class="check-box border-right">CHECK-IN<br /><span>Add date</span></div>
+              <div class="check-box">CHECKOUT<br /><span>Add date</span></div>
+            </div>
+            <div class="guest-box">GUESTS<br /><span>1 guest</span></div>
+          </div>
+          <button class="btn-reserve">Reserve</button>
+          <p class="charge-note">You won't be charged yet</p>
+        </div>
+      </aside>
+
+    </div>
+  </div>
+</div>
+<script src="/js/map.js"></script>

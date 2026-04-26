@@ -1,0 +1,45 @@
+<% layout('/layouts/boilerplate') -%>
+
+<main class="login-page-wrapper">
+  <div class="login-card">
+    <form
+      action="/user/login"
+      method="POST"
+      class="login-form needs-validation"
+      novalidate
+    >
+      <h2>Log in</h2>
+      <div class="divider"></div>
+
+      <div class="input-field">
+        <label for="username">Username</label>
+        <input
+          type="text"
+          id="username"
+          name="username"
+          class="form-control"
+          placeholder="Enter your username"
+          required
+        />
+      </div>
+
+      <div class="input-field">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          id="password"
+          name="password"
+          class="form-control"
+          placeholder="Enter your password"
+          required
+        />
+      </div>
+
+      <button type="submit" class="submit-btn">Continue</button>
+
+      <div class="footer-links">
+        <p>Don't have an account? <a href="/user/signup">Sign up</a></p>
+      </div>
+    </form>
+  </div>
+</main>

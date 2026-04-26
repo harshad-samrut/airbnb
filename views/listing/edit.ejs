@@ -1,0 +1,123 @@
+<% layout('/layouts/boilerplate') -%>
+
+<div class="form-wrapper">
+  <div class="form-container animate-fade-in">
+    <header class="form-header">
+      <h2 class="form-title">Edit your listing</h2>
+      <p class="form-subtitle">
+        Update the details of your property to keep guests informed.
+      </p>
+    </header>
+
+    <form
+      action="/listings/<%= data._id %>?_method=PUT"
+      method="POST"
+      class="airbnb-form needs-validation"
+      novalidate
+      enctype="multipart/form-data"
+    >
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input
+          type="text"
+          name="listing[title]"
+          id="title"
+          class="form-control"
+          placeholder="e.g. Cozy Beachfront Villa"
+          value="<%= data.title %>"
+          required
+        />
+        <div class="invalid-feedback">A catchy title is required.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          name="listing[description]"
+          id="description"
+          rows="5"
+          class="form-control"
+          placeholder="Describe what makes your place special..."
+          required
+        >
+<%= data.description %></textarea
+        >
+        <div class="invalid-feedback">Please provide a description.</div>
+      </div>
+
+      <div class="image-section">
+        <label>Current Image</label>
+        <div class="old-image-preview">
+          <img src="<%= originalUrl %>" alt="Current listing image" />
+        </div>
+
+        <div class="form-group mt-3">
+          <label for="url" class="file-label">Upload New Image</label>
+          <input
+            type="file"
+            name="listing[image][url]"
+            id="url"
+            class="form-control file-input"
+          />
+          <small class="text-muted"
+            >Leave empty to keep the current image.</small
+          >
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="price">Price (per night)</label>
+          <div class="price-input-wrapper">
+            <span class="currency-prefix">$</span>
+            <input
+              type="number"
+              name="listing[price]"
+              id="price"
+              class="form-control price-field"
+              value="<%= data.price %>"
+              min="0"
+              required
+            />
+          </div>
+          <div class="invalid-feedback">Price is required.</div>
+        </div>
+
+        <div class="form-group">
+          <label for="location">City</label>
+          <input
+            type="text"
+            name="listing[location]"
+            id="location"
+            class="form-control"
+            value="<%= data.location %>"
+            placeholder="e.g. Malibu"
+            required
+          />
+          <div class="invalid-feedback">City is required.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="country">Country</label>
+        <input
+          type="text"
+          name="listing[country]"
+          id="country"
+          class="form-control"
+          value="<%= data.country %>"
+          placeholder="e.g. United States"
+          required
+        />
+        <div class="invalid-feedback">Country is required.</div>
+      </div>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-submit">Update Details</button>
+        <a href="/listings/<%= data._id %>" class="btn-back"
+          >Cancel and go back</a
+        >
+      </div>
+    </form>
+  </div>
+</div>

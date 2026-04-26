@@ -1,0 +1,83 @@
+/* Login specific wrapper to prevent collision */
+.login-page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 70vh; /* Adjusts based on your header/footer height */
+  padding: 60px 20px;
+  background-color: #ffffff;
+}
+
+.login-page-wrapper .login-card {
+  width: 100%;
+  max-width: 450px;
+  border: 1px solid #dddddd;
+  border-radius: 12px;
+  padding: 24px;
+  background: #fff;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+}
+
+.login-page-wrapper h2 {
+  font-size: 1.4rem;
+  color: #222222;
+  margin-bottom: 20px;
+  font-weight: 600;
+}
+
+.login-page-wrapper .divider {
+  height: 1px;
+  background-color: #dddddd;
+  margin-bottom: 24px;
+}
+
+.login-page-wrapper .input-field {
+  margin-bottom: 20px;
+}
+
+.login-page-wrapper label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #717171;
+}
+
+.login-page-wrapper input {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #b0b0b0;
+  border-radius: 8px;
+  font-size: 16px;
+}
+
+.login-page-wrapper input:focus {
+  outline: none;
+  border: 2px solid #222222;
+}
+
+.login-page-wrapper .submit-btn {
+  width: 100%;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(to right, #e61e4d 0%, #e31c5f 50%, #d70466 100%);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+.login-page-wrapper .footer-links {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 14px;
+  color: #222222;
+}
+
+.login-page-wrapper .footer-links a {
+  color: #222222;
+  font-weight: 600;
+  text-decoration: underline;
+}

@@ -1,0 +1,74 @@
+<header class="hp-nav-container" id="hpNav">
+  <div class="hp-nav-inner">
+    <div class="hp-nav-top">
+      <div class="hp-logo">
+        <a href="/listings">
+          <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/Airbnb_Logo_Bélo.svg" alt="Airbnb" />
+        </a>
+      </div>
+
+      <nav class="hp-categories" id="navLinks">
+        <div class="hp-nav-item active">Homes</div>
+        <div class="hp-nav-item">Experiences</div>
+        <div class="hp-nav-item">Services</div>
+      </nav>
+
+      <div class="hp-user-menu">
+        <% if (!currUser) { %>
+          <a href="/user/signup" class="hp-auth-link">Sign up</a>
+          <a href="/user/login" class="hp-auth-link login-btn">Log in</a>
+        <% } else { %>
+          <div class="hp-profile-box">
+             <form action="/user/logout" method="POST" style="margin:0;">
+                <button class="logout-btn">Logout</button>
+             </form>
+             <div class="hp-avatar">
+               <i class="fa-solid fa-user"></i>
+             </div>
+          </div>
+        <% } %>
+      </div>
+    </div>
+
+    <div class="hp-search-wrapper" id="searchWrapper">
+      <form class="hp-search-form" id="hpSearchForm" autocomplete="off" action="/search" method="GET">
+        <div class="hp-search-input-group">
+          <label for="loc">Where</label>
+          <input type="text" id="loc" name="location" placeholder="Search destinations" required />
+        </div>
+
+        <div class="hp-v-divider"></div>
+
+        <div class="hp-search-input-group">
+          <label for="date">When</label>
+          <input type="text" id="date" name="dates" placeholder="Add dates" />
+        </div>
+
+        <div class="hp-v-divider"></div>
+
+        <div class="hp-search-input-group">
+          <label for="guest">Who</label>
+          <input type="text" id="guest" name="guests" placeholder="Add guests" />
+        </div>
+
+        <button type="submit" class="hp-search-btn">
+          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false">
+            <path fill="none" d="M13 24a11 11 0 1 0 0-22 11 11 0 0 0 0 22zm8-3 9 9" stroke="white" stroke-width="4"></path>
+          </svg>
+        </button>
+      </form>
+    </div>
+  </div>
+</header>
+
+<script>
+  // Script to handle the "Compact" scroll animation
+  window.addEventListener('scroll', () => {
+    const nav = document.getElementById('hpNav');
+    if (window.scrollY > 50) {
+      nav.classList.add('compact');
+    } else {
+      nav.classList.remove('compact');
+    }
+  });
+</script>

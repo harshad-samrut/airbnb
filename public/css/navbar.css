@@ -1,0 +1,231 @@
+/* --- GLOBAL STYLES --- */
+:root {
+  --primary-color: #ff385c;
+  --text-dark: #222222;
+  --text-gray: #717171;
+  --border-light: #dddddd;
+  --shadow: 0 3px 12px rgba(0, 0, 0, 0.08);
+  --transition-smooth: all 0.4s cubic-bezier(0.2, 0, 0, 1);
+}
+
+body {
+  margin: 0;
+  padding-top: 180px; /* Space for fixed header */
+  font-family:
+    "Circular",
+    -apple-system,
+    system-ui,
+    sans-serif;
+  background-color: #f7f7f7;
+}
+
+/* --- NAV CONTAINER --- */
+.hp-nav-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 100%;
+  background: #ffffff;
+  border-bottom: 1px solid #ebebeb;
+  padding: 20px 0;
+  z-index: 2000;
+  transition: var(--transition-smooth);
+}
+
+.hp-nav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+/* --- TOP ROW --- */
+.hp-nav-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 48px;
+  margin-bottom: 15px;
+  transition: var(--transition-smooth);
+}
+
+.hp-logo img {
+  height: 32px;
+  cursor: pointer;
+}
+
+.hp-categories {
+  display: flex;
+  gap: 30px;
+  transition: var(--transition-smooth);
+}
+
+.hp-nav-item {
+  font-size: 16px;
+  color: var(--text-gray);
+  cursor: pointer;
+  font-weight: 500;
+  padding-bottom: 10px;
+  position: relative;
+}
+
+.hp-nav-item:hover {
+  color: var(--text-dark);
+}
+
+.hp-nav-item.active {
+  color: var(--text-dark);
+}
+
+.hp-nav-item.active::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: var(--text-dark);
+}
+
+/* --- USER MENU --- */
+.hp-user-menu {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hp-auth-link {
+  text-decoration: none;
+  color: var(--text-dark);
+  font-size: 14px;
+  font-weight: 600;
+  padding: 10px 15px;
+  border-radius: 20px;
+  transition: background 0.2s;
+}
+
+.hp-auth-link:hover {
+  background: #f7f7f7;
+}
+
+.hp-profile-box {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border: 1px solid var(--border-light);
+  padding: 5px 5px 5px 15px;
+  border-radius: 30px;
+  transition: box-shadow 0.2s;
+}
+
+.hp-profile-box:hover {
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logout-btn {
+  background: none;
+  border: none;
+  font-weight: 600;
+  cursor: pointer;
+  color: var(--text-dark);
+}
+
+.hp-avatar {
+  width: 32px;
+  height: 32px;
+  background: #595959;
+  color: white;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* --- SEARCH BAR --- */
+.hp-search-wrapper {
+  display: flex;
+  justify-content: center;
+  transition: var(--transition-smooth);
+  transform-origin: center top;
+}
+
+.hp-search-form {
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border: 1px solid var(--border-light);
+  box-shadow: var(--shadow);
+  border-radius: 40px;
+  height: 66px;
+}
+
+.hp-search-input-group {
+  padding: 10px 25px;
+  transition: background 0.2s;
+  border-radius: 32px;
+}
+
+.hp-search-input-group:hover {
+  background: #ebebeb;
+}
+
+.hp-search-input-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 800;
+  color: var(--text-dark);
+}
+
+.hp-search-input-group input {
+  border: none;
+  outline: none;
+  font-size: 14px;
+  background: transparent;
+  color: var(--text-gray);
+  width: 140px;
+}
+
+.hp-search-btn {
+  background: var(--primary-color);
+  border: none;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-right: 10px;
+  transition: transform 0.2s;
+}
+
+.hp-search-btn:hover {
+  transform: scale(1.05);
+}
+
+.hp-search-btn svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* --- COMPACT STATE (Triggered via JS) --- */
+.hp-nav-container.compact {
+  padding: 15px 0;
+}
+
+/* Hide categories and lift the top row */
+.hp-nav-container.compact .hp-categories {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-20px);
+}
+
+/* Shrink and move the search bar up into the nav row */
+.hp-nav-container.compact .hp-search-wrapper {
+  transform: translateY(-55px) scale(0.75);
+}
+
+.hp-nav-container.compact .hp-search-form {
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.08);
+}
+  

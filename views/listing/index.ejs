@@ -1,0 +1,32 @@
+<% layout('/layouts/boilerplate') -%>
+<div class="listings-container">
+    <div class="listings-grid">
+        <% for(let villa of data) { %>
+            <a href="/listings/<%= villa._id %>" class="listing-link">
+                <div class="listing-card">
+                    <div class="card-img-container">
+                        <img src="<%= villa.image.url %>" alt="<%= villa.title %>" class="card-img">
+                    </div>
+                    
+                    <div class="card-body">
+                        <p class="card-location">
+                            <b>Villa in <%= villa.location %> city</b>
+                        </p>
+                        <p class="card-text text-secondary">
+                            <%= villa.country %>
+                        </p>
+                        <p class="card-price">
+                            <b>&#8377; <%= (villa.price *2).toLocaleString("en-IN") %></b> for 2 nights
+                        </p>
+                    </div>
+                </div>
+            </a>
+        <% } %>
+    </div>
+
+    <div class="add-btn-wrapper">
+        <form action="/listings/new" method="GET">
+            <button class="btn-airbnb-dark">Add New Villa</button>
+        </form>
+    </div>
+</div>

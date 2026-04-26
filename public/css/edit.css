@@ -1,0 +1,226 @@
+/* 1. Layout & Container */
+.form-wrapper {
+  padding: 120px 20px 100px 20px;
+  background-color: #f7f7f7;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 600px;
+  padding: 40px;
+  background: white;
+  border-radius: 12px;
+  border: 1px solid #dddddd;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  opacity: 0; /* For animation */
+}
+
+/* Entry Animation */
+.animate-fade-in {
+  animation: fadeInUp 0.6s ease-out forwards;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.form-header {
+  margin-bottom: 32px;
+}
+
+.form-title {
+  font-size: 28px;
+  font-weight: 600;
+  color: #222222;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.form-subtitle {
+  font-size: 15px;
+  color: #717171;
+}
+
+/* 2. Form Styling */
+.airbnb-form {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.form-group label {
+  font-size: 13px;
+  font-weight: 700;
+  color: #222222;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* 3. Inputs & Textarea */
+.form-control {
+  padding: 14px 16px;
+  border: 1px solid #b0b0b0;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  color: #222222;
+}
+
+.form-control:hover {
+  border-color: #222222;
+}
+
+.form-control:focus {
+  border-color: #222222;
+  box-shadow: 0 0 0 2px rgba(34, 34, 34, 0.1);
+  outline: none;
+}
+
+/* Image Preview Styling */
+.image-section {
+  padding: 15px;
+  border: 1px solid #ebebeb;
+  border-radius: 8px;
+  background-color: #fafafa;
+}
+
+.old-image-preview img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-top: 8px;
+  border: 1px solid #ddd;
+}
+
+/* Price Field Specialty */
+.price-input-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.currency-prefix {
+  position: absolute;
+  left: 14px;
+  color: #717171;
+  font-size: 16px;
+}
+
+.price-field {
+  padding-left: 30px !important;
+  width: 100%;
+}
+
+/* 4. Grid Layout */
+.form-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+/* 5. Validation Colors */
+.invalid-feedback {
+  font-size: 12px;
+  color: #c13515;
+  margin-top: 4px;
+  display: none;
+  animation: shake 0.4s ease-in-out;
+}
+
+@keyframes shake {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  25% {
+    transform: translateX(-4px);
+  }
+  75% {
+    transform: translateX(4px);
+  }
+}
+
+.was-validated .form-control:invalid {
+  border-color: #c13515;
+  background-color: #fffcfc;
+}
+
+.was-validated .form-control:invalid ~ .invalid-feedback {
+  display: block;
+}
+
+/* 6. Buttons & Actions */
+.form-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-top: 10px;
+}
+
+.btn-submit {
+  background: linear-gradient(to right, #e61e4d 0%, #e31c5f 50%, #d70466 100%);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 14px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition:
+    opacity 0.2s ease,
+    transform 0.1s active;
+}
+
+.btn-submit:hover {
+  opacity: 0.9;
+}
+
+.btn-submit:active {
+  transform: scale(0.98);
+}
+
+.btn-back {
+  color: #222222;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: underline;
+  text-align: center;
+  transition: color 0.2s ease;
+}
+
+.btn-back:hover {
+  color: #717171;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  .form-wrapper {
+    padding-top: 60px;
+  }
+  .form-container {
+    padding: 24px;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+  }
+  .form-row {
+    grid-template-columns: 1fr;
+  }
+}

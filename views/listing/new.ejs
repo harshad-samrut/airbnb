@@ -1,0 +1,96 @@
+<% layout('/layouts/boilerplate') -%>
+
+<div class="form-wrapper">
+  <div class="form-container">
+    <h2 class="form-title">Create a new listing</h2>
+    <p class="form-subtitle">
+      Share the details of your beautiful villa with the world.
+    </p>
+
+    <form
+      action="/listings"
+      method="POST"
+      class="airbnb-form needs-validation"
+      novalidate
+      enctype="multipart/form-data"
+    >
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input
+          type="text"
+          class="form-control"
+          name="listing[title]"
+          id="title"
+          placeholder="e.g. Secluded Beach House"
+          required
+        />
+        <div class="invalid-feedback">Please provide a Title.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea
+          name="listing[description]"
+          class="form-control"
+          id="description"
+          rows="5"
+          placeholder="Tell guests what makes your place special..."
+          required
+        ></textarea>
+        <div class="invalid-feedback">Please provide a Description.</div>
+      </div>
+
+      <div class="form-group">
+        <label for="url">Upload Image</label>
+        <input
+          type="file"
+          class="form-control"
+          name="listing[image][url]"
+          id="url"
+        />
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="price">Price (per night)</label>
+          <input
+            type="text"
+            class="form-control"
+            name="listing[price]"
+            id="price"
+            placeholder="enter price"
+            required
+          />
+          <div class="invalid-feedback">Please provide a Valid Price.</div>
+        </div>
+        <div class="form-group">
+          <label for="location">City</label>
+          <input
+            type="text"
+            class="form-control"
+            name="listing[location]"
+            id="location"
+            placeholder="e.g. Goa"
+            required
+          />
+          <div class="invalid-feedback">Please provide a City.</div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label for="country">Country</label>
+        <input
+          type="text"
+          name="listing[country]"
+          id="country"
+          placeholder="India"
+          required
+          class="form-control"
+        />
+        <div class="invalid-feedback">Please provide a Country.</div>
+      </div>
+
+      <button type="submit" class="btn-submit">Create Listing</button>
+    </form>
+  </div>
+</div>
