@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -14,13 +15,15 @@ const reviewsRouter = require("./routes/review.js");
 const usersRouter = require("./routes/user.js");
 
 const session = require("express-session");
+const MongoStore = require("connect-mongo").default;
 
 const passport = require("passport");
 const passportLocal = require("passport-local");
 const User = require("./models/user.js");
 
-const MONGO_URL = process.env.MONGO_URL;
-const PORT = process.env.PORT || 8080;
+// const MONGO_URL ="mongodb://127.0.0.1:27017/wonderlust";
+const ATLASDB_DB_URL = process.env.ATLASDB_URL;
+const PORT = 8080;
 
 main()
   .then((result) => {
@@ -31,7 +34,7 @@ main()
   });
 
 async function main() {
-  await mongoose.connect(MONGO_URL);
+  await mongoose.connect(ATLASDB_DB_URL);
 }
 
 app.engine("ejs", engine);
@@ -42,18 +45,31 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
-app.use(
-  session({
-    secret: "samiksha",
-    resave: false,
-    saveUninitialized: true,
-    cookie: {
-      expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
-      maxAge: 7 * 24 * 60 * 60 * 1000,
-      httpOnly: true,
-    },
-  }),
-);
+const store = new MongoStore({
+  mongoUrl: ATLASDB_DB_URL,
+  crypto: {
+    secret:process.env.SECRET,
+  },
+  touchAfter: 24 * 60 * 60,
+});
+
+store.on("error", (err) => {
+  console.log("Session store error", err);
+});
+
+const sessionOption = {
+  store,
+  secret:process.env.SECRET,
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+    maxAge: 7 * 24 * 60 * 60 * 1000,
+    httpOnly: true,
+  },
+};
+
+app.use(session(sessionOption));
 app.use(flash());
 
 app.use(passport.initialize());
@@ -89,7 +105,6 @@ app.use((req, res, next) => {
 // ====================== ERROR HANDLER ======================
 // This should be the LAST middleware
 app.use((err, req, res, next) => {
-
   let { statusCode = 500 } = err;
   let message = err.message || "Something went wrong";
 
