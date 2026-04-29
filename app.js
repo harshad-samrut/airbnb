@@ -1,5 +1,5 @@
 if (process.env.NODE_ENV != "production") {
-  require('dotenv').config();
+  require("dotenv").config();
 }
 const express = require("express");
 const app = express();
@@ -10,6 +10,7 @@ const flash = require("connect-flash");
 const methodOverride = require("method-override");
 const engine = require("ejs-mate");
 const ExpressError = require("./utils/ExpressError.js");
+const wrapAsync = require("./utils/wrapAsync.js");
 
 const listingsRouter = require("./routes/listings.js");
 const reviewsRouter = require("./routes/review.js");
@@ -17,9 +18,9 @@ const usersRouter = require("./routes/user.js");
 
 const session = require("express-session");
 
-const passport = require('passport');
-const passportLocal = require('passport-local');
-const User = require('./models/user.js');
+const passport = require("passport");
+const passportLocal = require("passport-local");
+const User = require("./models/user.js");
 
 const MONGO_URL = "mongodb://127.0.0.1:27017/wonderlust";
 
@@ -64,31 +65,38 @@ passport.use(new passportLocal(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
-app.get("/", (req, res) => {
-  res.redirect("/listings");
-});
-
-app.use((req,res,next)=>{
+// Flash + Current User Middleware
+app.use((req, res, next) => {
   res.locals.success = req.flash("success");
   res.locals.error = req.flash("error");
   res.locals.currUser = req.user;
   next();
-})
+});
+
+// ====================== ROUTES ======================
+app.get("/", (req, res) => {
+  res.redirect("/listings");
+});
 
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewsRouter);
 app.use("/user", usersRouter);
 
+// ====================== 404 HANDLER ======================
+// This should be AFTER all routes
 app.use((req, res, next) => {
   return next(new ExpressError(404, "Page not found"));
 });
 
+// ====================== ERROR HANDLER ======================
+// This should be the LAST middleware
 app.use((err, req, res, next) => {
-  // console.log("ERROR HANDLER HIT"); // 👈 IMPORTANT
+
   let { statusCode = 500 } = err;
   let message = err.message || "Something went wrong";
 
-  res.render("error.ejs", { message });
+  console.error(err); // helpful for debugging
+  res.status(statusCode).render("error.ejs", { message });
 });
 
 app.listen(8080, () => {

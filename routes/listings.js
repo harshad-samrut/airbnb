@@ -23,8 +23,6 @@ const validateListing = (req, res, next) => {
   next();
 };
 
-router.use(flash());
-
 // Listings (GET all, POST new)
 router
   .route("/")
@@ -37,7 +35,15 @@ router
   );
 
 // New form
-router.get("/new",isLoggedIn, listingController.renderNewForm);
+router.get("/new", isLoggedIn, listingController.renderNewForm);
+
+// Edit form
+router.get(
+  "/:id/edit",
+  isLoggedIn,
+  isOwner,
+  wrapAsync(listingController.renderEditForm),
+);
 
 // Single listing (show, update, delete)
 router
@@ -51,13 +57,5 @@ router
     wrapAsync(listingController.updateListing),
   )
   .delete(isLoggedIn, isOwner, wrapAsync(listingController.deleteListing));
-
-// Edit form
-router.get(
-  "/:id/edit",
-  isLoggedIn,
-  isOwner,
-  wrapAsync(listingController.renderEditForm),
-);
 
 module.exports = router;

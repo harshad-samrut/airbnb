@@ -1,0 +1,96 @@
+<% layout('/layouts/boilerplate') -%>
+
+<section class="portal-wrapper">
+  <div class="property-card">
+    <h2 class="portal-heading">List Your Property</h2>
+    <p class="portal-description">
+      Provide the essential details to showcase your home to potential guests.
+    </p>
+
+    <form
+      action="/listings"
+      method="POST"
+      class="portal-form needs-validation"
+      novalidate
+      enctype="multipart/form-data"
+    >
+      <div class="field-container">
+        <label for="listingTitle">Property Title</label>
+        <input
+          type="text"
+          class="form-control"
+          name="listing[title]"
+          id="listingTitle"
+          placeholder="e.g. Modern Minimalist Loft"
+          required
+        />
+        <div class="invalid-feedback">Title is required.</div>
+      </div>
+
+      <div class="field-container">
+        <label for="listingDesc">About the Space</label>
+        <textarea
+          name="listing[description]"
+          class="form-control"
+          id="listingDesc"
+          rows="5"
+          placeholder="Describe the amenities and vibe..."
+          required
+        ></textarea>
+        <div class="invalid-feedback">Description is required.</div>
+      </div>
+
+      <div class="field-container">
+        <label for="imageUpload">Gallery Image</label>
+        <input
+          type="file"
+          class="form-control"
+          name="listing[image][url]"
+          id="imageUpload"
+        />
+      </div>
+
+      <div class="split-fields">
+        <div class="field-container">
+          <label for="listingPrice">Nightly Rate</label>
+          <input
+            type="text"
+            class="form-control"
+            name="listing[price]"
+            id="listingPrice"
+            placeholder="0.00"
+            required
+          />
+          <div class="invalid-feedback">Price must be valid.</div>
+        </div>
+        <div class="field-container">
+          <label for="listingCity">Location (City)</label>
+          <input
+            type="text"
+            class="form-control"
+            name="listing[location]"
+            id="listingCity"
+            placeholder="e.g. Mumbai"
+            required
+          />
+          <div class="invalid-feedback">City is required.</div>
+        </div>
+      </div>
+
+      <div class="field-container">
+        <label for="listingCountry">Country</label>
+        <input
+          type="text"
+          name="listing[country]"
+          id="listingCountry"
+          placeholder="India"
+          required
+          class="form-control"
+        />
+        <div class="invalid-feedback">Country is required.</div>
+      </div>
+
+      <button type="submit" class="action-button">Publish Listing</button>
+    </form>
+  </div>
+</section>
