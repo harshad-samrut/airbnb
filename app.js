@@ -1,6 +1,3 @@
-if (process.env.NODE_ENV != "production") {
-  require("dotenv").config();
-}
 const express = require("express");
 const app = express();
 const path = require("path");
@@ -22,7 +19,8 @@ const passport = require("passport");
 const passportLocal = require("passport-local");
 const User = require("./models/user.js");
 
-const MONGO_URL = "mongodb://127.0.0.1:27017/wonderlust";
+const MONGO_URL = process.env.MONGO_URL;
+const PORT = process.env.PORT || 8080;
 
 main()
   .then((result) => {
@@ -99,6 +97,6 @@ app.use((err, req, res, next) => {
   res.status(statusCode).render("error.ejs", { message });
 });
 
-app.listen(8080, () => {
-  console.log("Listining the app");
+app.listen(PORT, () => {
+  console.log(`Listening on port ${PORT}`);
 });
