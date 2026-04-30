@@ -1,64 +1,83 @@
+/* ====================== ROOT VARIABLES ====================== */
 :root {
   --airbnb-red: #ff385c;
   --text-dark: #222222;
   --text-light: #717171;
   --border-color: #dddddd;
+  --shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
 }
-#map {
-  width: 700px;
-  height: 400px;
-}
+
+/* ====================== GLOBAL ====================== */
 body {
-  margin-top: 200px;
+  margin: 0;
+  padding: 0;
   font-family:
     "Circular",
     -apple-system,
     BlinkMacSystemFont,
-    Roboto,
-    Helvetica Neue,
+    "Segoe UI",
     sans-serif;
   color: var(--text-dark);
   background-color: #fff;
+  line-height: 1.5;
 }
 
+/* ====================== SHOW PAGE ====================== */
 .show-page-wrapper {
   max-width: 1120px;
-  margin: 2rem auto;
+  margin: 0 auto;
   padding: 0 24px;
 }
 
-/* Header Styling */
+/* Header */
+.show-header {
+  margin-top: 150px;
+  margin-bottom: 24px;
+}
+
 .show-title {
-  font-size: 1.6rem;
-  font-weight: 600;
-  margin-bottom: 4px;
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 8px;
 }
 
 .show-subheader {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 24px;
+  flex-wrap: wrap;
+  gap: 12px;
+  font-size: 15px;
+  color: var(--text-light);
+}
+
+.show-subheader .subheader-left {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .dot {
-  margin: 0 8px;
+  margin: 0 6px;
+  color: var(--text-light);
 }
+
 .show-location-link {
   text-decoration: underline;
   cursor: pointer;
+  color: var(--text-dark);
 }
 
 .action-btn {
   background: none;
   border: none;
-  text-decoration: underline;
   font-weight: 600;
-  cursor: pointer;
-  padding: 8px;
+  padding: 8px 12px;
   border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
 }
 
 .action-btn:hover {
@@ -68,97 +87,118 @@ body {
 /* Gallery */
 .show-gallery {
   width: 100%;
-  height: 480px;
-  border-radius: 12px;
+  height: 460px;
+  border-radius: 16px;
   overflow: hidden;
   margin-bottom: 32px;
+  box-shadow: var(--shadow);
 }
 
 .hero-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  transition: transform 0.4s ease;
 }
 
-/* Layout Split */
+.show-gallery:hover .hero-img {
+  transform: scale(1.03);
+}
+
+/* Main Content Layout */
 .show-content-layout {
   display: grid;
   grid-template-columns: 2fr 1fr;
   gap: 80px;
+  margin-top: 20px;
 }
 
-.section-divider {
-  border: 0;
-  border-top: 1px solid var(--border-color);
-  margin: 32px 0;
+/* Left Content */
+.content-left {
+  min-width: 0;
 }
 
-/* Host & Description */
 .host-details h2 {
-  font-size: 22px;
+  font-size: 1.65rem;
   font-weight: 600;
   margin-bottom: 8px;
 }
 
-.property-description {
-  line-height: 1.5;
-  font-size: 16px;
-  color: var(--text-dark);
+.stats-info {
+  color: var(--text-light);
+  font-size: 15px;
+  margin-bottom: 24px;
 }
 
-/* Admin Actions (Edit/Delete) */
+.property-description {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #222;
+}
+
+/* Section Dividers */
+.section-divider {
+  border: none;
+  border-top: 1px solid var(--border-color);
+  margin: 40px 0;
+}
+
+/* Admin Buttons */
 .admin-actions {
   display: flex;
-  gap: 15px;
+  gap: 12px;
+  margin: 20px 0;
+}
+
+.btn-edit,
+.btn-delete {
+  padding: 12px 24px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
 .btn-edit {
   background-color: #222;
   color: white;
-  padding: 10px 24px;
-  border-radius: 8px;
   text-decoration: none;
-  font-weight: 600;
-  transition: 0.2s;
 }
 
 .btn-edit:hover {
   background-color: #000;
-  color: #fff;
 }
 
 .btn-delete {
   background-color: white;
-  color: #222;
-  border: 1px solid #222;
-  padding: 10px 24px;
-  border-radius: 8px;
-  font-weight: 600;
-  cursor: pointer;
+  color: #e63939;
+  border: 1px solid #e63939;
 }
 
 .btn-delete:hover {
-  background-color: #f7f7f7;
+  background-color: #fff0f0;
 }
 
-/* Booking Card (Sticky) */
+/* Booking Card */
 .content-right {
   position: relative;
 }
 
 .booking-card {
   position: sticky;
-  top: 100px;
+  top: 120px;
   border: 1px solid var(--border-color);
-  border-radius: 12px;
+  border-radius: 16px;
   padding: 24px;
-  box-shadow: rgba(0, 0, 0, 0.12) 0px 6px 16px;
+  box-shadow: var(--shadow);
+  background: white;
 }
 
 .price-big {
-  font-size: 22px;
+  font-size: 28px;
   font-weight: 700;
 }
+
 .per-night {
   font-size: 16px;
   color: var(--text-light);
@@ -166,50 +206,62 @@ body {
 
 .booking-form-mock {
   border: 1px solid #b0b0b0;
-  border-radius: 8px;
-  margin: 24px 0 16px 0;
+  border-radius: 12px;
+  margin: 24px 0;
+  overflow: hidden;
 }
 
 .check-container {
   display: flex;
-  border-bottom: 1px solid #b0b0b0;
 }
+
 .check-box {
   flex: 1;
-  padding: 10px;
-  font-size: 10px;
-  font-weight: 800;
+  padding: 14px 16px;
+  font-size: 12px;
+  font-weight: 700;
+  border-bottom: 1px solid #b0b0b0;
 }
+
+.check-box:last-child {
+  border-bottom: none;
+}
+
 .check-box span {
+  display: block;
   font-weight: 400;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--text-light);
-}
-.border-right {
-  border-right: 1px solid #b0b0b0;
+  margin-top: 4px;
 }
 
 .guest-box {
-  padding: 10px;
-  font-size: 10px;
-  font-weight: 800;
+  padding: 14px 16px;
+  font-size: 12px;
+  font-weight: 700;
 }
+
 .guest-box span {
   font-weight: 400;
-  font-size: 14px;
+  font-size: 15px;
   color: var(--text-light);
 }
 
 .btn-reserve {
   width: 100%;
-  background: linear-gradient(to right, #e61e4d 0%, #e31c5f 50%, #d70466 100%);
+  background: linear-gradient(to right, #e61e4d, #ff385c);
   color: white;
   border: none;
-  padding: 14px;
-  border-radius: 8px;
-  font-size: 16px;
+  padding: 16px;
+  border-radius: 12px;
+  font-size: 18px;
   font-weight: 600;
   cursor: pointer;
+  margin-top: 8px;
+}
+
+.btn-reserve:hover {
+  opacity: 0.95;
 }
 
 .charge-note {
@@ -219,16 +271,15 @@ body {
   margin-top: 12px;
 }
 
-/* Reviews Styling */
+/* Reviews */
 .reviews-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 40px;
-  margin-top: 24px;
 }
 
 .review-card {
-  margin-bottom: 20px;
+  margin-bottom: 28px;
 }
 
 .review-user {
@@ -239,56 +290,106 @@ body {
 }
 
 .user-avatar {
-  width: 40px;
-  height: 40px;
-  background-color: #222;
+  width: 48px;
+  height: 48px;
+  background: #222;
   color: white;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-weight: 600;
+  font-weight: 700;
+  font-size: 18px;
 }
 
 .user-name {
   font-weight: 600;
   margin: 0;
 }
-.review-stars {
-  font-size: 12px;
-  margin: 0;
-}
+
 .review-text {
-  line-height: 1.4;
+  font-size: 15.5px;
+  line-height: 1.5;
+}
+
+/* Map */
+#map {
+  width: 100%;
+  height: 380px;
+  border-radius: 12px;
+  margin-top: 12px;
+}
+
+/* Back Navigation Styles */
+.back-navigation {
+  margin-bottom: 16px;
+}
+
+.back-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
   color: var(--text-dark);
-}
-
-/* Form Elements */
-.btn-primary-custom {
-  background-color: var(--text-dark);
-  color: white;
-  border: none;
-  padding: 10px 20px;
-  border-radius: 8px;
   font-weight: 600;
+  font-size: 20px;
+  padding: 8px 12px;
+  margin-left: -12px; /* Pulls it slightly left to align the icon with text below */
+  border-radius: 8px;
+  transition: background-color 0.2s;
 }
 
-.custom-range::-webkit-slider-thumb {
-  background: var(--airbnb-red);
+.back-link:hover {
+  background-color: #f7f7f7;
+  text-decoration: underline;
 }
 
-/* Responsive */
+.back-link i {
+  font-size: 12px;
+}
+
+/* ====================== RESPONSIVE ====================== */
+
+@media (max-width: 1024px) {
+  .show-content-layout {
+    gap: 40px;
+  }
+}
+
 @media (max-width: 768px) {
+  .show-title {
+    font-size: 1.75rem;
+  }
+
   .show-content-layout {
     grid-template-columns: 1fr;
+    gap: 32px;
   }
+
   .content-right {
     order: -1;
   }
+
   .booking-card {
     position: static;
+    top: auto;
   }
+
   .reviews-grid {
     grid-template-columns: 1fr;
+  }
+
+  .show-gallery {
+    height: 320px;
+  }
+}
+
+@media (max-width: 480px) {
+  .show-page-wrapper {
+    padding: 0 16px;
+  }
+
+  .show-header {
+    margin-top: 80px;
   }
 }

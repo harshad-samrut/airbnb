@@ -1,102 +1,106 @@
-/* 1. Global Reset */
+/* ====================== GLOBAL RESET ====================== */
 html,
 body {
   margin: 0;
-  padding: 0;
+  padding: 0; /* Top padding for navbar space */
   width: 100%;
   overflow-x: hidden;
   font-family:
-    Circular,
+    "Circular",
     -apple-system,
     BlinkMacSystemFont,
-    Roboto,
-    "Helvetica Neue",
+    "Segoe UI",
     sans-serif;
+  background-color: #f7f7f7;
 }
 
-/* 2. Main Container - Adjusted padding to clear fixed navbar */
+/* ====================== LISTINGS PAGE ====================== */
 .listings-container {
-  padding: 50px 80px 40px 80px;
-  margin: 0;
+  padding: 200px 24px 80px 24px; /* Top padding thoda rakha hai safety ke liye */
+  max-width: 1280px;
+  margin: 0 auto;
   width: 100%;
   box-sizing: border-box;
 }
 
-/* 3. The Grid */
+/* The Grid */
 .listings-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 24px;
   row-gap: 40px;
 }
 
-/* 4. THE LINK WRAPPER - CRITICAL STYLES */
+/* Link Wrapper */
 .listing-link {
-  text-decoration: none; /* Removes the underline */
-  color: inherit; /* Keeps text black instead of link-blue */
-  display: block; /* Ensures the link takes up the full card area */
+  text-decoration: none;
+  color: inherit;
+  display: block;
 }
 
 .listing-card {
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  transition: transform 0.2s ease;
+  transition: transform 0.25s ease;
 }
 
-/* 5. Image Styling */
+.listing-card:hover {
+  transform: translateY(-4px);
+}
+
+/* Image */
 .card-img-container {
   width: 100%;
   aspect-ratio: 1 / 0.95;
   border-radius: 12px;
   overflow: hidden;
   margin-bottom: 12px;
-  background-color: #f7f7f7;
+  background-color: #f0f0f0;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
 }
 
 .card-img {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform 0.3s ease;
+  transition: transform 0.4s ease;
 }
 
-/* 6. Hover Animation: Entire card feel */
 .listing-link:hover .card-img {
-  transform: scale(1.03);
+  transform: scale(1.04);
 }
 
-.listing-link:hover {
-  opacity: 0.9; /* Subtle "clicked" feel on hover */
-}
-
-/* 7. Typography */
+/* Card Content */
 .card-body {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 4px;
 }
 
 .card-location {
-  font-size: 15px;
+  font-size: 15.5px;
+  font-weight: 600;
   margin: 0;
+  color: #222;
 }
 
 .card-text {
-  font-size: 15px;
+  font-size: 14.5px;
   margin: 0;
   color: #717171;
 }
 
 .card-price {
-  margin-top: 4px;
+  margin-top: 6px;
   font-size: 15px;
+  font-weight: 600;
 }
 
-/* 8. Floating Add Button */
+/* Floating Add Button */
 .add-btn-wrapper {
   position: fixed;
-  bottom: 50px;
+  bottom: 80px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 1100;
@@ -106,9 +110,33 @@ body {
   background-color: #222222;
   color: white;
   border: none;
-  padding: 14px 24px;
+  padding: 14px 28px;
   border-radius: 30px;
   font-weight: 600;
   cursor: pointer;
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+}
+
+.btn-airbnb-dark:hover {
+  background-color: #000;
+  transform: scale(1.05);
+}
+
+/* ====================== RESPONSIVE ====================== */
+
+@media (max-width: 768px) {
+  .listings-container {
+    padding: 15px 16px 80px 16px;
+  }
+
+  .listings-grid {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 480px) {
+  .listings-container {
+    padding: 100px 12px 70px 12px;
+  }
 }

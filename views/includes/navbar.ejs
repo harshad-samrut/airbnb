@@ -1,74 +1,111 @@
+<!-- header.ejs -->
 <header class="hp-nav-container" id="hpNav">
   <div class="hp-nav-inner">
-    <div class="hp-nav-top">
+
+    <!-- Top Row: Logo + Categories + User Menu (Desktop & Tablet only) -->
+    <div class="hp-nav-top desktop-only">
+      <!-- Logo -->
       <div class="hp-logo">
         <a href="/listings">
           <img src="https://upload.wikimedia.org/wikipedia/commons/6/69/Airbnb_Logo_Bélo.svg" alt="Airbnb" />
         </a>
       </div>
 
-      <nav class="hp-categories" id="navLinks">
+      <!-- Categories -->
+      <nav class="hp-categories">
         <div class="hp-nav-item active">Homes</div>
         <div class="hp-nav-item">Experiences</div>
         <div class="hp-nav-item">Services</div>
       </nav>
 
+      <!-- User Menu (Login/Signup/Logout) - Desktop only -->
       <div class="hp-user-menu">
-        <% if (!currUser) { %>
-          <a href="/user/signup" class="hp-auth-link">Sign up</a>
+        <% if (typeof currUser === 'undefined' || !currUser) { %>
+          <a href="/user/signup" class="hp-auth-link signup-btn">Sign up</a>
           <a href="/user/login" class="hp-auth-link login-btn">Log in</a>
         <% } else { %>
           <div class="hp-profile-box">
-             <form action="/user/logout" method="POST" style="margin:0;">
-                <button class="logout-btn">Logout</button>
-             </form>
-             <div class="hp-avatar">
-               <i class="fa-solid fa-user"></i>
-             </div>
+            <form action="/user/logout" method="POST" style="margin:0;">
+              <button type="submit" class="logout-btn">Logout</button>
+            </form>
+            <div class="hp-avatar">
+              <i class="fa-solid fa-user"></i>
+            </div>
           </div>
         <% } %>
       </div>
     </div>
 
-    <div class="hp-search-wrapper" id="searchWrapper">
-      <form class="hp-search-form" id="hpSearchForm" autocomplete="off" action="/search" method="GET">
+    <!-- Search Bar -->
+    <div class="hp-search-wrapper">
+      <!-- Desktop & Tablet: Full Search (Where | When | Who) -->
+      <form class="hp-search-form desktop-search" action="/search" method="GET">
         <div class="hp-search-input-group">
-          <label for="loc">Where</label>
-          <input type="text" id="loc" name="location" placeholder="Search destinations" required />
+          <label>Where</label>
+          <input type="text" name="location" placeholder="Search destinations" required />
         </div>
-
         <div class="hp-v-divider"></div>
-
         <div class="hp-search-input-group">
-          <label for="date">When</label>
-          <input type="text" id="date" name="dates" placeholder="Add dates" />
+          <label>When</label>
+          <input type="text" name="dates" placeholder="Add dates" />
         </div>
-
         <div class="hp-v-divider"></div>
-
         <div class="hp-search-input-group">
-          <label for="guest">Who</label>
-          <input type="text" id="guest" name="guests" placeholder="Add guests" />
+          <label>Who</label>
+          <input type="text" name="guests" placeholder="Add guests" />
         </div>
-
         <button type="submit" class="hp-search-btn">
-          <svg viewBox="0 0 32 32" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" role="presentation" focusable="false">
-            <path fill="none" d="M13 24a11 11 0 1 0 0-22 11 11 0 0 0 0 22zm8-3 9 9" stroke="white" stroke-width="4"></path>
-          </svg>
+          <i class="fa-solid fa-magnifying-glass"></i>
         </button>
       </form>
+
+      <!-- Mobile: Simple Attractive Search Pill -->
+      <form class="hp-search-form mobile-search" action="/search" method="GET">
+        <div class="hp-mobile-search-pill">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" name="location" placeholder="Where are you going?" required />
+        </div>
+      </form>
     </div>
+
   </div>
 </header>
 
+<!-- Mobile Bottom Navigation -->
+<div class="mobile-bottom-nav">
+  <a href="/listings" class="mobile-nav-item active">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <span>Explore</span>
+  </a>
+  <a href="#" class="mobile-nav-item">
+    <i class="fa-regular fa-heart"></i>
+    <span>Wishlists</span>
+  </a>
+
+  <% if (typeof currUser === 'undefined' || !currUser) { %>
+    <!-- Not Logged In -->
+    <a href="/user/login" class="mobile-nav-item">
+      <i class="fa-regular fa-circle-user"></i>
+      <span>Log in</span>
+    </a>
+  <% } else { %>
+    <!-- Logged In - Show Logout -->
+    <form action="/user/logout" method="POST" class="mobile-nav-item logout-form">
+      <button type="submit">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i>
+        <span>Logout</span>
+      </button>
+    </form>
+  <% } %>
+</div>
 <script>
-  // Script to handle the "Compact" scroll animation
+  const nav = document.getElementById('hpNav');
+  
   window.addEventListener('scroll', () => {
-    const nav = document.getElementById('hpNav');
-    if (window.scrollY > 50) {
-      nav.classList.add('compact');
+    if (window.scrollY > 20) {
+      nav.classList.add('scrolled');
     } else {
-      nav.classList.remove('compact');
+      nav.classList.remove('scrolled');
     }
   });
 </script>

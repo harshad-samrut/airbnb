@@ -1,42 +1,33 @@
-/* Airbnb Footer Styles */
+/* 1. Global Footer Styling */
 .hp-footer {
   background-color: #f7f7f7;
   border-top: 1px solid #dddddd;
   padding: 48px 0 24px 0;
-  font-family:
-    Circular,
-    -apple-system,
-    BlinkMacSystemFont,
-    Roboto,
-    "Helvetica Neue",
-    sans-serif;
   color: #222222;
+  /* Ensuring the footer stays at the bottom if content is sparse */
+  width: 100%;
 }
 
 .hp-footer-inner {
   max-width: 1280px;
   margin: 0 auto;
-  padding: 0 80px;
+  padding: 0 40px; /* Reduced from 80px for better tablet fit */
 }
 
-/* Links Section */
+/* 2. Top Links Grid */
 .hp-footer-top {
-  display: flex;
-  justify-content: flex-start;
-  gap: 100px;
-  flex-wrap: wrap;
+  display: grid;
+  /* Creates three equal columns that stack automatically */
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
   padding-bottom: 48px;
-}
-
-.hp-footer-column {
-  flex: 1;
-  min-width: 250px;
 }
 
 .hp-footer-column h3 {
   font-size: 14px;
-  font-weight: 600;
-  margin-bottom: 12px;
+  font-weight: 700; /* Bolder for hierarchy */
+  margin-bottom: 16px;
+  color: #222222;
 }
 
 .hp-footer-column ul {
@@ -54,11 +45,12 @@
   color: #222222;
   font-size: 14px;
   font-weight: 400;
-  transition: text-decoration 0.2s ease;
+  transition: color 0.2s ease;
 }
 
 .hp-footer-column a:hover {
   text-decoration: underline;
+  color: #000000;
 }
 
 .hp-footer-divider {
@@ -67,41 +59,44 @@
   margin-bottom: 24px;
 }
 
-/* Bottom Bar Section */
+/* 3. Bottom Bar Styling */
 .hp-footer-bottom {
   display: flex;
   justify-content: space-between;
   align-items: center;
   flex-wrap: wrap;
-  gap: 20px;
+  gap: 24px;
 }
 
 .hp-footer-legal {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   font-size: 14px;
   color: #222222;
+}
+
+.hp-footer-legal span,
+.hp-footer-legal a {
+  margin-right: 4px;
 }
 
 .hp-footer-legal a {
   text-decoration: none;
   color: #222222;
-  margin: 0 4px;
+  transition: text-decoration 0.2s ease;
 }
 
 .hp-footer-legal a:hover {
   text-decoration: underline;
 }
 
-.hp-footer-legal .dot {
-  margin: 0 8px;
-}
-
-/* Settings & Socials */
+/* 4. Settings & Socials with Transitions */
 .hp-footer-settings {
   display: flex;
   align-items: center;
   gap: 24px;
+  flex-wrap: wrap;
 }
 
 .hp-setting-item {
@@ -111,10 +106,11 @@
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
+  transition: opacity 0.2s ease;
 }
 
 .hp-setting-item:hover {
-  text-decoration: underline;
+  opacity: 0.7;
 }
 
 .hp-social-icons {
@@ -125,23 +121,61 @@
 
 .hp-social-icons a {
   color: #222222;
-  transition: transform 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .hp-social-icons a:hover {
-  transform: scale(1.05);
+  transform: scale(1.15); /* Slightly bigger pop on hover */
 }
 
-/* Responsive Adjustments */
-@media (max-width: 768px) {
+/* 5. Responsive Adjustments */
+
+/* Tablets / iPads (Portrait) */
+@media (max-width: 992px) {
   .hp-footer-inner {
     padding: 0 24px;
   }
   .hp-footer-top {
+    grid-template-columns: repeat(2, 1fr); /* 2 columns for tablets */
     gap: 40px;
   }
+}
+
+/* Mobile Devices */
+@media (max-width: 576px) {
+  .hp-footer {
+    padding: 32px 0 40px 0;
+  }
+
+  .hp-footer-top {
+    grid-template-columns: 1fr; /* Stack columns vertically */
+    gap: 32px;
+    border-bottom: 1px solid #dddddd;
+    margin-bottom: 24px;
+  }
+
+  .hp-footer-column {
+    padding-bottom: 10px;
+  }
+
+  .hp-footer-divider {
+    display: none; /* Divider is redundant when columns stack and have borders */
+  }
+
   .hp-footer-bottom {
-    flex-direction: column-reverse;
+    flex-direction: column-reverse; /* Put Socials/Settings on top of Legal */
     align-items: flex-start;
+    gap: 20px;
+  }
+
+  .hp-footer-settings {
+    width: 100%;
+    justify-content: flex-start;
+    gap: 20px;
+  }
+
+  .hp-footer-legal {
+    font-size: 13px;
+    line-height: 1.8;
   }
 }

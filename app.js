@@ -48,7 +48,7 @@ app.use(methodOverride("_method"));
 const store = new MongoStore({
   mongoUrl: ATLASDB_DB_URL,
   crypto: {
-    secret:process.env.SECRET,
+    secret: process.env.SECRET,
   },
   touchAfter: 24 * 60 * 60,
 });
@@ -59,7 +59,7 @@ store.on("error", (err) => {
 
 const sessionOption = {
   store,
-  secret:process.env.SECRET,
+  secret: process.env.SECRET,
   resave: false,
   saveUninitialized: true,
   cookie: {
@@ -95,11 +95,22 @@ app.get("/", (req, res) => {
 app.use("/listings", listingsRouter);
 app.use("/listings/:id/reviews", reviewsRouter);
 app.use("/user", usersRouter);
-
+app.get("/favicon.ico", (req, res) => {
+  res.status(204).end();
+});
 // ====================== 404 HANDLER ======================
-// This should be AFTER all routes
+// Must be AFTER all routes
 app.use((req, res, next) => {
-  return next(new ExpressError(404, "Page not found"));
+  // Ignore favicon requests completely
+  if (
+    req.originalUrl === "/favicon.ico" ||
+    req.originalUrl.startsWith("/favicon")
+  ) {
+    return res.status(204).end(); // Return early, no error
+  }
+
+  // For all other routes → throw 404
+  next(new ExpressError(404, "Page not found"));
 });
 
 // ====================== ERROR HANDLER ======================
