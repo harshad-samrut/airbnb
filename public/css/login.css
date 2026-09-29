@@ -6,6 +6,7 @@
   min-height: 70vh; /* Adjusts based on your header/footer height */
   padding: 60px 20px;
   background-color: #ffffff;
+  margin-top: 150px;
 }
 
 .login-page-wrapper .login-card {

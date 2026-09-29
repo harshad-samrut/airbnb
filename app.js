@@ -15,7 +15,9 @@ const reviewsRouter = require("./routes/review.js");
 const usersRouter = require("./routes/user.js");
 
 const session = require("express-session");
-const MongoStore = require("connect-mongo").default;
+// const MongoStore = require("connect-mongo").default;
+// const { MongoStore } = require("connect-mongo");
+const MongoStore = require("connect-mongo");
 
 const passport = require("passport");
 const passportLocal = require("passport-local");
@@ -23,7 +25,7 @@ const User = require("./models/user.js");
 
 // const MONGO_URL ="mongodb://127.0.0.1:27017/wonderlust";
 const ATLASDB_DB_URL = process.env.ATLASDB_URL;
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
 
 main()
   .then((result) => {
@@ -45,17 +47,33 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(express.urlencoded({ extended: true }));
 app.use(methodOverride("_method"));
 
+// const store = new MongoStore({
+//   mongoUrl: ATLASDB_DB_URL,
+//   crypto: {
+//     secret: process.env.SECRET,
+//   },
+//   touchAfter: 24 * 60 * 60,
+// });
 const store = new MongoStore({
   mongoUrl: ATLASDB_DB_URL,
-  crypto: {
-    secret: process.env.SECRET,
-  },
   touchAfter: 24 * 60 * 60,
 });
 
 store.on("error", (err) => {
   console.log("Session store error", err);
 });
+
+// const sessionOption = {
+//   store,
+//   secret: process.env.SECRET,
+//   resave: false,
+//   saveUninitialized: true,
+//   cookie: {
+//     expires: Date.now() + 7 * 24 * 60 * 60 * 1000,
+//     maxAge: 7 * 24 * 60 * 60 * 1000,
+//     httpOnly: true,
+//   },
+// };
 
 const sessionOption = {
   store,
@@ -126,3 +144,4 @@ app.use((err, req, res, next) => {
 app.listen(PORT, () => {
   console.log(`Listening on port ${PORT}`);
 });
+module.exports = app;
